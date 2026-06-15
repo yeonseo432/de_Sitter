@@ -986,7 +986,6 @@
     drawSimulationPanel(els.simCanvasB, ctx.simB, "B");
     drawSpectrumPanel(els.spectrumCanvasA, ctx.spectrumA, "A");
     drawSpectrumPanel(els.spectrumCanvasB, ctx.spectrumB, "B");
-    drawTutorialVisual();
     requestAnimationFrame(drawAll);
   }
 
@@ -1077,32 +1076,10 @@
     els.tutorialPrev.disabled = state.tutorialStep === 0;
     els.tutorialNext.textContent = state.tutorialStep === tutorialSteps.length - 1 ? "시작하기" : "다음";
     els.stepDots.innerHTML = tutorialSteps.map((_, i) => `<span class="step-dot${i === state.tutorialStep ? " active" : ""}"></span>`).join("");
-    drawTutorialVisual();
   }
 
   function makeTutorialBody(step) {
-    const visualClass = step.visual;
-    const paragraphs = step.body.map((text) => `<p>${text}</p>`).join("");
-    if (visualClass.endsWith("Setup")) {
-      return `
-        ${paragraphs}
-        <div class="tutorial-visual setup">
-          <div class="tutorial-canvas-wrap setup"><canvas id="tutorialVisualCanvas" class="tutorial-canvas"></canvas></div>
-        </div>
-      `;
-    }
-    let lineHtml = '<span class="mini-line center"></span>';
-    if (visualClass === "blue") lineHtml = '<span class="mini-line blue"></span>';
-    if (visualClass === "red") lineHtml = '<span class="mini-line red"></span>';
-    if (visualClass === "two") lineHtml = '<span class="mini-line two-a"></span><span class="mini-line two-b"></span>';
-    return `
-      ${paragraphs}
-      <div class="tutorial-visual">
-        <div class="tutorial-canvas-wrap"><canvas id="tutorialVisualCanvas" class="tutorial-canvas"></canvas></div>
-        <div class="mini-spectrum">${lineHtml}</div>
-        <div class="mini-labels"><span>짧은 파장</span><span>기준 λ₀</span><span>긴 파장</span></div>
-      </div>
-    `;
+    return step.body.map((text) => `<p>${text}</p>`).join("");
   }
 
   function drawTutorialVisual() {
@@ -1553,12 +1530,4 @@
   syncInputsFromState();
   recomputeSpectra();
   requestAnimationFrame(drawAll);
-
-  try {
-    if (localStorage.getItem("deSitterSpectrumTutorialSeen") !== "1") {
-      setTimeout(() => openTutorial(0), 350);
-    }
-  } catch (err) {
-    setTimeout(() => openTutorial(0), 350);
-  }
 })();

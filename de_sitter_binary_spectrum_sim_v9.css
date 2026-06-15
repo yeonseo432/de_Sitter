@@ -308,8 +308,8 @@ input[type="range"] {
 }
 
 .tutorial-body {
-  min-height: 610px;
-  padding: 18px 22px 8px;
+  min-height: 260px;
+  padding: 18px 22px 12px;
   color: #dbe5f2;
   line-height: 1.62;
   font-size: 15px;
@@ -422,7 +422,7 @@ input[type="range"] {
   }
   .controls { grid-template-columns: 1fr; }
   .readout, .spectrum-note { white-space: normal; }
-  .tutorial-body { min-height: 660px; }
+  .tutorial-body { min-height: 300px; }
   .tutorial-canvas-wrap.setup { height: 590px; }
 }
 
@@ -573,7 +573,8 @@ input[type="range"] {
 }
 
 .analysis-figure {
-  margin: 0;
+  max-width: 760px;
+  margin: 0 auto;
   padding: 14px;
   border: 1px solid rgba(148, 163, 184, 0.16);
   border-radius: 16px;
@@ -583,7 +584,7 @@ input[type="range"] {
 .analysis-figure img {
   display: block;
   width: 100%;
-  max-height: 560px;
+  max-height: 420px;
   object-fit: contain;
   border-radius: 10px;
   background: #fff;
@@ -642,6 +643,6 @@ input[type="range"] {
   }
 
   .analysis-figure img {
-    max-height: 480px;
+    max-height: 320px;
   }
 }
