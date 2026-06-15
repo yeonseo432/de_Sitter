@@ -317,69 +317,6 @@ input[type="range"] {
 
 .tutorial-body p { margin: 0 0 10px; }
 
-.tutorial-visual {
-  margin: 14px 0 6px;
-  padding: 14px;
-  border: 1px solid rgba(148, 163, 184, 0.14);
-  border-radius: 16px;
-  background: #07101d;
-}
-
-.tutorial-canvas-wrap {
-  height: 190px;
-  margin-bottom: 12px;
-}
-
-.tutorial-canvas-wrap.setup {
-  height: 480px;
-  margin-bottom: 0;
-}
-
-.tutorial-visual.setup {
-  padding: 10px;
-}
-
-.tutorial-canvas {
-  display: block;
-  width: 100%;
-  height: 100%;
-  border-radius: 14px;
-  background: #050914;
-}
-
-.mini-spectrum {
-  position: relative;
-  height: 44px;
-  border-radius: 0;
-  border: 1px solid rgba(255,255,255,0.22);
-  overflow: hidden;
-  background: linear-gradient(90deg, #5d7fff 0%, #6b58b8 35%, #d1d8e8 50%, #d08d58 68%, #c84d3f 100%);
-}
-
-.mini-line {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 4px;
-  border-radius: 0;
-  background: rgba(2, 6, 15, 0.78);
-  box-shadow: 0 0 0 1px rgba(255,255,255,0.18);
-}
-
-.mini-line.center { left: calc(50% - 2px); }
-.mini-line.blue { left: calc(32% - 2px); }
-.mini-line.red { left: calc(68% - 2px); }
-.mini-line.two-a { left: calc(38% - 2px); }
-.mini-line.two-b { left: calc(64% - 2px); }
-
-.mini-labels {
-  display: flex;
-  justify-content: space-between;
-  color: var(--muted);
-  font-size: 12px;
-  margin-top: 7px;
-}
-
 .tutorial-foot {
   display: flex;
   align-items: center;
@@ -423,7 +360,6 @@ input[type="range"] {
   .controls { grid-template-columns: 1fr; }
   .readout, .spectrum-note { white-space: normal; }
   .tutorial-body { min-height: 300px; }
-  .tutorial-canvas-wrap.setup { height: 590px; }
 }
 
 @media (max-width: 980px) and (orientation: landscape) and (min-width: 720px) {

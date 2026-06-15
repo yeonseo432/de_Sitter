@@ -112,7 +112,6 @@
   const tutorialSteps = [
     {
         "title": "무엇을 비교하는가?",
-        "visual": "observationSetup",
         "body": [
             "이 시뮬레이션은 쌍성계에서 오는 별빛의 대표 흡수선이 관측자에게 어떻게 보이는지 비교합니다.",
             "비교하는 것은 빛의 전파속도가 광원의 운동과 무관한 광속불변 모형과, 광원의 시선방향 속도에 영향을 받는 방출설 모형입니다.",
@@ -121,7 +120,6 @@
     },
     {
         "title": "쌍성계 궤도를 단순화한다",
-        "visual": "orbitSetup",
         "body": [
             "실제 쌍성계에서는 두 별이 공통 질량중심 주위를 돕니다. 두 별의 궤도반지름과 위상은 질량에 따라 다르고, 실제 궤도는 원이 아니라 타원일 수 있습니다.",
             "이 시뮬레이션에서는 더시터르 논증의 핵심만 보이기 위해 무거운 별은 거의 중심에 정지해 있고, 가벼운 별 하나가 그 주위를 원운동한다고 둡니다.",
@@ -130,7 +128,6 @@
     },
     {
         "title": "여러 흡수선 중 하나만 본다",
-        "visual": "spectrumSetup",
         "body": [
             "실제 별빛에는 연속 스펙트럼 위에 여러 흡수선이 나타납니다. 실제 쌍성계에서는 두 별 모두 각자의 스펙트럼선을 만들 수도 있습니다.",
             "이 시뮬레이션에서는 여러 흡수선 중 하나의 대표 흡수선만 추적합니다. 또한 두 별의 선을 모두 그리지 않고, 공전하는 별 하나에서 나온 선만 관측한다고 둡니다.",
@@ -139,7 +136,6 @@
     },
     {
         "title": "다가오는 별빛은 짧은 파장으로 보인다",
-        "visual": "blue",
         "body": [
             "별이 관측자 쪽으로 다가오면, 나중에 나온 파면이 앞서 나온 파면을 더 좁은 간격으로 따라옵니다.",
             "관측자에게 도착하는 파면 사이의 시간 간격이 짧아지고, 관측되는 파장도 짧아집니다.",
@@ -148,7 +144,6 @@
     },
     {
         "title": "멀어지는 별빛은 긴 파장으로 보인다",
-        "visual": "red",
         "body": [
             "별이 관측자에게서 멀어지면, 다음 파면이 관측자에게 더 늦게 도착합니다.",
             "관측자에게 도착하는 파면 사이의 시간 간격이 길어지고, 관측되는 파장도 길어집니다.",
@@ -157,7 +152,6 @@
     },
     {
         "title": "광속불변 모형에서는 선 하나가 부드럽게 왕복한다",
-        "visual": "center",
         "body": [
             "광속불변 모형에서는 별이 다가오든 멀어지든 빛의 전파속도는 c입니다.",
             "별의 운동은 도플러 이동을 만들지만, 이미 방출된 빛의 전파속도 자체를 바꾸지는 않습니다.",
@@ -166,7 +160,6 @@
     },
     {
         "title": "광속이 광원 속도에 의존하면 도착 순서가 흐트러질 수 있다",
-        "visual": "two",
         "body": [
             "방출설 모형에서는 빛의 전파속도가 방출 순간 별의 시선방향 속도 u에 영향을 받는다고 가정합니다. 이 시뮬레이션에서는 c_light = c + k u 로 계산합니다.",
             "별이 관측자 쪽으로 움직일 때 나온 빛은 더 빠르게 가고, 멀어질 때 나온 빛은 더 느리게 갑니다.",
@@ -175,7 +168,6 @@
     },
     {
         "title": "여러 파장이 동시에 구별되어 보일 수 있다",
-        "visual": "two",
         "body": [
             "여러 파장의 빛이 동시에 관측자에게 도착한다고 해서 하나의 평균 파장으로만 보이는 것은 아닙니다.",
             "분광기는 파장에 따라 빛을 분리하므로, 서로 다른 파장 성분이 동시에 들어오면 서로 다른 위치에 흡수선이 나타날 수 있습니다.",
@@ -184,7 +176,6 @@
     },
     {
         "title": "실제 관측과 비교하기",
-        "visual": "observationSetup",
         "body": [
             "실제 분광쌍성 관측에서는 여러 시점의 스펙트럼을 궤도 위상에 따라 쌓아 trailed spectra를 만듭니다.",
             "이때 가로축은 파장 이동을 속도로 환산한 값이고, 세로축은 공전 주기를 0에서 1로 접은 궤도 위상입니다.",
@@ -1080,448 +1071,6 @@
 
   function makeTutorialBody(step) {
     return step.body.map((text) => `<p>${text}</p>`).join("");
-  }
-
-  function drawTutorialVisual() {
-    if (!els.tutorialOverlay.classList.contains("open")) return;
-    const canvas = document.getElementById("tutorialVisualCanvas");
-    if (!canvas) return;
-    const dims = resizeCanvas(canvas);
-    const context = canvas.getContext("2d");
-    const width = dims.width;
-    const height = dims.height;
-    const step = tutorialSteps[state.tutorialStep];
-    const mode = step ? step.visual : "center";
-
-    context.clearRect(0, 0, width, height);
-    context.fillStyle = "#050914";
-    context.fillRect(0, 0, width, height);
-
-    if (mode.endsWith("Setup")) {
-      drawTutorialSetupPage(context, width, height, mode);
-      return;
-    }
-
-    const splitY = height * 0.56;
-    drawTutorialWavefrontScene(context, width, splitY, mode);
-    drawTutorialEMWave(context, width, height, splitY, mode);
-  }
-
-  function drawTutorialSetupPage(context, width, height, mode) {
-    context.save();
-    const pad = 18;
-    const top = 14;
-    const titleH = 36;
-    const cardGap = 12;
-    const contentW = width - pad * 2;
-    const contentH = height - top * 2;
-    const t = state.time;
-
-    context.fillStyle = "#050914";
-    context.fillRect(0, 0, width, height);
-
-    if (mode === "orbitSetup") {
-      drawSetupColumnOrbit(context, pad, top, contentW, contentH, titleH, cardGap, t);
-    } else if (mode === "spectrumSetup") {
-      drawSetupColumnSpectrum(context, pad, top, contentW, contentH, titleH, cardGap);
-    } else if (mode === "observationSetup") {
-      drawSetupColumnObservation(context, pad, top, contentW, contentH, titleH, cardGap, t);
-    }
-    context.restore();
-  }
-
-  function drawSetupColumnTitle(context, x, y, w, text) {
-    context.save();
-    context.fillStyle = COLORS.text;
-    context.font = "800 15px system-ui, sans-serif";
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    context.fillText(text, x + w / 2, y + 15);
-    context.restore();
-  }
-
-  function drawSetupCard(context, x, y, w, h, title, selected, drawFn, caption) {
-    context.save();
-    context.fillStyle = selected ? "rgba(255,77,61,0.08)" : "rgba(7,16,29,0.95)";
-    context.strokeStyle = selected ? "#ff4d3d" : "rgba(148,163,184,0.22)";
-    context.lineWidth = selected ? 2.6 : 1.1;
-    context.fillRect(x, y, w, h);
-    context.strokeRect(x, y, w, h);
-
-    context.fillStyle = selected ? "#ffd1cb" : COLORS.text;
-    context.font = "700 12px system-ui, sans-serif";
-    context.textAlign = "left";
-    context.textBaseline = "top";
-    context.fillText(title, x + 10, y + 8);
-    if (selected) {
-      context.fillStyle = "rgba(255,77,61,0.18)";
-      context.fillRect(x + w - 54, y + 6, 44, 20);
-      context.fillStyle = "#ffd1cb";
-      context.font = "800 11px system-ui, sans-serif";
-      context.textAlign = "center";
-      context.fillText("선택", x + w - 32, y + 10);
-    }
-    drawFn(context, x + 10, y + 30, w - 20, h - 54);
-    if (caption) {
-      context.fillStyle = COLORS.muted;
-      context.font = "11px system-ui, sans-serif";
-      context.textAlign = "center";
-      context.textBaseline = "bottom";
-      drawCenteredText(context, caption, x + w / 2, y + h - 8, w - 18, 12);
-    }
-    context.restore();
-  }
-
-  function drawCenteredText(context, text, cx, y, maxWidth, lineHeight) {
-    const words = text.split(" ");
-    const lines = [];
-    let line = "";
-    for (const word of words) {
-      const test = line ? `${line} ${word}` : word;
-      if (context.measureText(test).width > maxWidth && line) {
-        lines.push(line);
-        line = word;
-      } else {
-        line = test;
-      }
-    }
-    if (line) lines.push(line);
-    const startY = y - (lines.length - 1) * lineHeight;
-    for (let i = 0; i < lines.length; i++) {
-      context.fillText(lines[i], cx, startY + i * lineHeight);
-    }
-  }
-
-  function drawSetupColumnOrbit(context, x, y, w, h, titleH, gap, t) {
-    drawSetupColumnTitle(context, x, y, w, "궤도 단순화");
-    const cardH = (h - titleH - gap * 2) / 3;
-    drawSetupCard(context, x, y + titleH, w, cardH, "일반 쌍성계", false, (ctx2, bx, by, bw, bh) => {
-      drawGeneralBinary(ctx2, bx, by, bw, bh, t);
-    }, "두 별이 공통 질량중심 주위를 운동");
-    drawSetupCard(context, x, y + titleH + cardH + gap, w, cardH, "중심별 + 타원 궤도", false, (ctx2, bx, by, bw, bh) => {
-      drawSingleOrbitModel(ctx2, bx, by, bw, bh, t, true);
-    }, "무거운 별은 거의 정지한다고 단순화");
-    drawSetupCard(context, x, y + titleH + (cardH + gap) * 2, w, cardH, "중심별 + 원 궤도", true, (ctx2, bx, by, bw, bh) => {
-      drawSingleOrbitModel(ctx2, bx, by, bw, bh, t, false);
-    }, "이 시뮬레이션의 궤도 모델");
-  }
-
-  function drawSetupColumnSpectrum(context, x, y, w, h, titleH, gap) {
-    drawSetupColumnTitle(context, x, y, w, "스펙트럼 단순화");
-    const cardH = (h - titleH - gap) / 2;
-    drawSetupCard(context, x, y + titleH, w, cardH, "실제 별빛", false, (ctx2, bx, by, bw, bh) => {
-      drawMiniSpectrumBlock(ctx2, bx, by + bh * 0.30, bw, bh * 0.34, [0.18, 0.34, 0.47, 0.66, 0.82]);
-    }, "연속 스펙트럼 위에 여러 흡수선");
-    drawSetupCard(context, x, y + titleH + cardH + gap, w, cardH, "대표 흡수선 하나", true, (ctx2, bx, by, bw, bh) => {
-      drawMiniSpectrumBlock(ctx2, bx, by + bh * 0.30, bw, bh * 0.34, [0.50]);
-    }, "여러 선 중 하나의 위치만 추적");
-  }
-
-  function drawSetupColumnObservation(context, x, y, w, h, titleH, gap, t) {
-    drawSetupColumnTitle(context, x, y, w, "관측 방식 선택");
-    const noteH = 46;
-    const cardH = (h - titleH - noteH - gap) / 2;
-    drawSetupCard(context, x, y + titleH, w, cardH, "밝기 변화 관측", false, (ctx2, bx, by, bw, bh) => {
-      drawEclipsingObservation(ctx2, bx, by, bw, bh, t);
-    }, "식이 생기면 밝기가 주기적으로 변함");
-    drawSetupCard(context, x, y + titleH + cardH + gap, w, cardH, "스펙트럼선 이동 관측", true, (ctx2, bx, by, bw, bh) => {
-      drawSpectroscopicObservation(ctx2, bx, by, bw, bh, t);
-    }, "본 시뮬레이션은 이 관측 신호를 사용");
-
-    context.save();
-    context.fillStyle = COLORS.muted;
-    context.font = "11px system-ui, sans-serif";
-    context.textAlign = "center";
-    context.textBaseline = "middle";
-    drawCenteredText(context, "식쌍성도 스펙트럼선이 움직일 수 있습니다. 여기서는 밝기 변화가 아니라 스펙트럼선 이동을 선택합니다.", x + w / 2, y + h - 22, w - 18, 13);
-    context.restore();
-  }
-
-  function drawGeneralBinary(context, x, y, w, h, t) {
-    const cx = x + w * 0.5;
-    const cy = y + h * 0.5;
-    const rx1 = w * 0.36;
-    const ry1 = h * 0.23;
-    const rx2 = w * 0.30;
-    const ry2 = h * 0.20;
-    const angle = t * Math.PI * 2 * 0.25;
-    context.save();
-    context.strokeStyle = "rgba(226,232,240,0.46)";
-    context.lineWidth = 1.5;
-    context.beginPath();
-    context.ellipse(cx, cy, rx1, ry1, 0.12, 0, Math.PI * 2);
-    context.stroke();
-    context.beginPath();
-    context.ellipse(cx, cy, rx2, ry2, Math.PI + 0.12, 0, Math.PI * 2);
-    context.stroke();
-    drawFlatCircle(context, cx, cy, 3.5, "rgba(231,237,247,0.75)");
-    context.fillStyle = COLORS.muted;
-    context.font = "10px system-ui, sans-serif";
-    context.textAlign = "center";
-    context.fillText("질량중심", cx, cy + 15);
-    const p1 = rotatedEllipsePoint(cx, cy, rx1, ry1, 0.12, angle);
-    const p2 = rotatedEllipsePoint(cx, cy, rx2, ry2, Math.PI + 0.12, angle + Math.PI);
-    drawFlatCircle(context, p1.x, p1.y, 7, COLORS.A, "rgba(255,255,255,0.35)");
-    drawFlatCircle(context, p2.x, p2.y, 9, COLORS.B, "rgba(255,255,255,0.35)");
-    context.restore();
-  }
-
-  function rotatedEllipsePoint(cx, cy, rx, ry, rot, theta) {
-    const x0 = rx * Math.cos(theta);
-    const y0 = ry * Math.sin(theta);
-    return {
-      x: cx + x0 * Math.cos(rot) - y0 * Math.sin(rot),
-      y: cy + x0 * Math.sin(rot) + y0 * Math.cos(rot)
-    };
-  }
-
-  function drawSingleOrbitModel(context, x, y, w, h, t, elliptical) {
-    const cx = x + w * 0.47;
-    const cy = y + h * 0.52;
-    const rx = elliptical ? w * 0.34 : Math.min(w, h) * 0.28;
-    const ry = elliptical ? h * 0.22 : rx;
-    const theta = t * Math.PI * 2 * 0.25 - Math.PI / 5;
-    context.save();
-    context.strokeStyle = "rgba(226,232,240,0.48)";
-    context.lineWidth = 1.6;
-    context.beginPath();
-    context.ellipse(cx, cy, rx, ry, 0, 0, Math.PI * 2);
-    context.stroke();
-    drawFlatCircle(context, cx, cy, 10, COLORS.centerStar, "rgba(255,255,255,0.35)");
-    const p = { x: cx + rx * Math.cos(theta), y: cy + ry * Math.sin(theta) };
-    drawFlatCircle(context, p.x, p.y, 6.5, COLORS.A, "rgba(255,255,255,0.55)");
-    context.restore();
-  }
-
-  function drawMiniSpectrumBlock(context, x, y, w, h, positions) {
-    const gradient = context.createLinearGradient(x, y, x + w, y);
-    gradient.addColorStop(0.00, "#456dff");
-    gradient.addColorStop(0.25, "#5f72d9");
-    gradient.addColorStop(0.50, "#d9e2ef");
-    gradient.addColorStop(0.68, "#f0b16b");
-    gradient.addColorStop(1.00, "#d74a43");
-    context.save();
-    context.fillStyle = gradient;
-    context.fillRect(x, y, w, h);
-    context.strokeStyle = "rgba(255,255,255,0.32)";
-    context.lineWidth = 1;
-    context.strokeRect(x, y, w, h);
-    context.fillStyle = "rgba(2,6,15,0.78)";
-    for (const p of positions) {
-      const lineW = Math.max(3, w * 0.018);
-      context.fillRect(x + w * p - lineW / 2, y, lineW, h);
-    }
-    context.restore();
-  }
-
-  function drawEclipsingObservation(context, x, y, w, h, t) {
-    const cx = x + w * 0.25;
-    const cy = y + h * 0.48;
-    const theta = t * Math.PI * 2 * 0.28;
-    const sep = 25 * Math.cos(theta);
-    context.save();
-    drawFlatCircle(context, cx - sep * 0.45, cy, 14, COLORS.B, "rgba(255,255,255,0.35)");
-    drawFlatCircle(context, cx + sep * 0.45, cy, 9, COLORS.A, "rgba(255,255,255,0.35)");
-    const eclipse = Math.max(0, 1 - Math.abs(sep) / 25);
-    const bx = x + w * 0.60;
-    const by = y + h * 0.35;
-    const bw = w * 0.30;
-    const bh = h * 0.28;
-    context.strokeStyle = "rgba(226,232,240,0.35)";
-    context.strokeRect(bx, by, bw, bh);
-    context.fillStyle = `rgba(231,237,247,${0.90 - eclipse * 0.45})`;
-    context.fillRect(bx, by, bw, bh);
-    context.fillStyle = COLORS.muted;
-    context.font = "10px system-ui, sans-serif";
-    context.textAlign = "center";
-    context.fillText("밝기", bx + bw / 2, by + bh + 14);
-    context.restore();
-  }
-
-  function drawSpectroscopicObservation(context, x, y, w, h, t) {
-    const cx = x + w * 0.22;
-    const cy = y + h * 0.48;
-    const orbitR = Math.min(w, h) * 0.17;
-    const theta = t * Math.PI * 2 * 0.28;
-    context.save();
-    context.strokeStyle = "rgba(226,232,240,0.32)";
-    context.beginPath();
-    context.arc(cx, cy, orbitR, 0, Math.PI * 2);
-    context.stroke();
-    drawFlatCircle(context, cx, cy, 10, COLORS.centerStar, "rgba(255,255,255,0.28)");
-    drawFlatCircle(context, cx + orbitR * Math.cos(theta), cy + orbitR * Math.sin(theta), 7, COLORS.A, "rgba(255,255,255,0.40)");
-
-    const rightX = x + w * 0.52;
-    const brightY = y + h * 0.18;
-    const brightW = w * 0.40;
-    const brightH = h * 0.20;
-    context.strokeStyle = "rgba(226,232,240,0.35)";
-    context.strokeRect(rightX, brightY, brightW, brightH);
-    context.fillStyle = "rgba(231,237,247,0.88)";
-    context.fillRect(rightX, brightY, brightW, brightH);
-    context.fillStyle = COLORS.muted;
-    context.font = "10px system-ui, sans-serif";
-    context.textAlign = "center";
-    context.fillText("밝기 일정", rightX + brightW / 2, brightY + brightH + 12);
-
-    const sx = rightX;
-    const sy = y + h * 0.58;
-    const sw = brightW;
-    const sh = h * 0.22;
-    const shift = 0.5 + 0.25 * Math.cos(theta);
-    drawMiniSpectrumBlock(context, sx, sy, sw, sh, [shift]);
-    context.fillStyle = COLORS.muted;
-    context.font = "10px system-ui, sans-serif";
-    context.textAlign = "center";
-    context.fillText("스펙트럼선 이동", sx + sw / 2, sy + sh + 12);
-    context.restore();
-  }
-
-
-  function drawTutorialWavefrontScene(context, width, sceneH, mode) {
-    const y = sceneH * 0.52;
-    const starBaseX = width * 0.18;
-    const observerX = width * 0.84;
-    const t = state.time * 1.8;
-    let starX = starBaseX;
-    let arrow = 0;
-    let spacing = 42;
-    let label = "같은 간격의 파면";
-    let lineColor = "rgba(226,232,240,0.85)";
-
-    if (mode === "blue") {
-      starX = starBaseX + Math.sin(t) * 8 + 18;
-      arrow = 1;
-      spacing = 30;
-      label = "도착 간격이 짧아짐";
-      lineColor = "#8fb2ff";
-    } else if (mode === "red") {
-      starX = starBaseX + Math.sin(t) * 8 - 8;
-      arrow = -1;
-      spacing = 55;
-      label = "도착 간격이 길어짐";
-      lineColor = "#ffba82";
-    } else if (mode === "two") {
-      spacing = 34;
-      label = "서로 다른 파면열이 함께 도착";
-      lineColor = "rgba(226,232,240,0.88)";
-    }
-
-    context.save();
-    context.strokeStyle = "rgba(226,232,240,0.18)";
-    context.lineWidth = 1.5;
-    context.beginPath();
-    context.moveTo(width * 0.08, y);
-    context.lineTo(observerX - 20, y);
-    context.stroke();
-
-    drawFlatCircle(context, starX, y, 9, mode === "red" ? "#ffb15c" : "#5aa9ff", "rgba(255,255,255,0.45)", 1.2);
-    context.fillStyle = COLORS.muted;
-    context.font = "11px system-ui, sans-serif";
-    context.textAlign = "center";
-    context.fillText("공전하는 별", starX, y + 25);
-
-    drawFlatCircle(context, observerX, y - 18, 7, "#e7edf7");
-    context.fillStyle = "#e7edf7";
-    context.fillRect(observerX - 3.5, y - 11, 7, 23);
-    context.fillStyle = COLORS.muted;
-    context.fillText("관측자", observerX, y + 25);
-
-    if (arrow !== 0) {
-      context.strokeStyle = lineColor;
-      context.fillStyle = lineColor;
-      context.lineWidth = 2;
-      const ax0 = starX + (arrow > 0 ? 16 : -16);
-      const ax1 = starX + (arrow > 0 ? 46 : -46);
-      context.beginPath();
-      context.moveTo(ax0, y - 28);
-      context.lineTo(ax1, y - 28);
-      context.stroke();
-      context.beginPath();
-      context.moveTo(ax1, y - 28);
-      context.lineTo(ax1 - arrow * 8, y - 33);
-      context.lineTo(ax1 - arrow * 8, y - 23);
-      context.closePath();
-      context.fill();
-    }
-
-    const offset = positiveMod(t * 20, spacing);
-    for (let x = observerX - 42 - offset; x > starX + 34; x -= spacing) {
-      drawWavefrontArc(context, x, y, 12, lineColor, 0.88);
-    }
-    if (mode === "two") {
-      for (let x = observerX - 62 - positiveMod(t * 28, spacing + 17); x > starX + 34; x -= spacing + 17) {
-        drawWavefrontArc(context, x, y - 12, 11, "#ffb15c", 0.78);
-      }
-    }
-
-    context.fillStyle = COLORS.text;
-    context.font = "700 13px system-ui, sans-serif";
-    context.textAlign = "left";
-    context.textBaseline = "top";
-    context.fillText(label, width * 0.08, 12);
-    context.restore();
-  }
-
-  function drawTutorialEMWave(context, width, height, splitY, mode) {
-    const waveY = splitY + (height - splitY) * 0.45;
-    const x0 = width * 0.09;
-    const x1 = width * 0.91;
-    let wavelength = 48;
-    let label = "기준 파장 λ₀";
-    let stroke = "rgba(226,232,240,0.88)";
-    if (mode === "blue") {
-      wavelength = 34;
-      label = "짧아진 파장";
-      stroke = "#8fb2ff";
-    } else if (mode === "red") {
-      wavelength = 70;
-      label = "길어진 파장";
-      stroke = "#ffba82";
-    } else if (mode === "two") {
-      wavelength = 36;
-      label = "두 파장 성분이 동시에 보일 수 있음";
-      stroke = "#8fb2ff";
-    }
-
-    context.save();
-    context.strokeStyle = "rgba(148,163,184,0.24)";
-    context.lineWidth = 1;
-    context.beginPath();
-    context.moveTo(x0, waveY);
-    context.lineTo(x1, waveY);
-    context.stroke();
-
-    drawSineWave(context, x0, x1, waveY, wavelength, 15, stroke, 2.2, 0);
-    if (mode === "two") {
-      drawSineWave(context, x0, x1, waveY, 64, 11, "#ffb15c", 2, Math.PI / 3);
-    }
-
-    context.fillStyle = COLORS.muted;
-    context.font = "11px system-ui, sans-serif";
-    context.textAlign = "left";
-    context.textBaseline = "top";
-    context.fillText("전자기파 모식도", x0, splitY + 8);
-    context.textAlign = "right";
-    context.fillText(label, x1, splitY + 8);
-    context.restore();
-  }
-
-  function drawSineWave(context, x0, x1, y, wavelength, amp, stroke, lineWidth, phase = 0) {
-    context.save();
-    context.strokeStyle = stroke;
-    context.lineWidth = lineWidth;
-    context.lineCap = "round";
-    context.beginPath();
-    const t = state.time * 5;
-    for (let i = 0; i <= 220; i++) {
-      const x = x0 + (x1 - x0) * i / 220;
-      const yy = y + Math.sin((x - x0) / wavelength * Math.PI * 2 - t + phase) * amp;
-      if (i === 0) context.moveTo(x, yy);
-      else context.lineTo(x, yy);
-    }
-    context.stroke();
-    context.restore();
   }
 
   state.sims.B.distLog = state.sims.A.distLog;
